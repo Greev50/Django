@@ -1,0 +1,68 @@
+cd ''
+Создайте новый проект Django с помощью команды `django-admin startproject <project_name>`
+cd '**' 
+python manage.py runserver
+выйти - Ctrl+c
+Создать условные мышцы проекта 'python manage.py startapp app_<project_name>'
+
+--- Работа с файлами ---
+app_<project_name> - views.py
+    
+from django.shortcuts import render
+from django.http import HttpResponse
+
+def index(request):
+    return HttpResponse("Успешный успех")
+
+    #Создана заглушка
+
+app_<project_name> - urls.py, создать самому
+
+from django.urls import path
+from .views import index
+
+urlpatterns = [ 
+    path('', index),
+]
+
+#когда путь будет пустой, выполнится индекс
+
+    #подключена заглушка
+
+<project_name> - settings.py
+
+В пункте INSTALLED_APPS добавить 'app_<project_name>', обязательно с запятой в конце, согласно синтаксису
+
+'''
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'app_advertisments',
+]
+...
+
+<project_name> - urls.py
+
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('app_<project_name>.urls')),
+]
+
+#подключили urls из мышц в скелет
+
+Итог:
+Имеем сервер с заглушкой
+---
+
+Чтоб добавить новую страницу, в app_<project_name>/views.py создаем def(requests)
+в app_<project_name>/urls.py в urlpatterns создаем path('**', <def_name>),
+в <project_name>/urls.py создаем path('**', include('app_<project_name>.urls')),
+
+ГОТОВО!!!
