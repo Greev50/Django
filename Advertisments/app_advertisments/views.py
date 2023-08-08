@@ -3,7 +3,19 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse("Успешный успех")
+    return render(request, 'index.html')
 
-def test33(request):
-    return HttpResponse("Тест 33")
+def top(request):
+    return render(request, 'top-sellers.html')
+
+def place(request):
+    return render(request, 'Advertisement-post.html')
+
+def reg(request):
+    return render(request, 'register.html')
+
+def log(request):
+    return render(request, 'login.html')
+
+def profile(request):
+    return render(request,'profile.html')

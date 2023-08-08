@@ -1,0 +1,39 @@
+Создаем в корневой главной папке новую папку templates, в которую закидываем нужные html файлы
+
+<project_name> - settings.py 
+'DIRS': [Path.joinpath(BASE_DIR, 'templates')], пишем такой код для подключения темплейтов
+
+app_<project_name> - views.py
+
+def index(request):
+    return render(request, 'index.html')
+
+#меняем заглушку на открытие сайта
+
+(кстати, в HttpResponse можно писать теги)
+
+В корневой папке создаем папку static
+В нее суем стили, css, js, Images
+
+<project_name> - settings.py 
+В самом низу под STATIC_URL = 'static/' пишем:
+STATICFILES_DIRS = [
+    Path.joinpath(BASE_DIR, 'static')
+    ]
+
+templates - index.html в самом верху пишем 
+
+{% load static %}
+
+В <link> изменяем ссылку, чтоб ее увидел джанго:
+
+<link href="{% static '**' %}" rel="stylesheet">
+<link rel="stylesheet" href="{% static '**' %}">
+
+То есть, добавляем {} по бокам, % по краям, ссылку заключаем в '', и перед ссылкой пишем static
+
+И в самом низу в <script src="**"></script> делаем то же самое
+<script src="{% static '**'%}"></script>
+
+А так же слегка подушним: во всех ссылках на изображения нужно будет сделать то же самое, "{% static '**' %}"
+

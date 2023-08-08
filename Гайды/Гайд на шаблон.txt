@@ -1,0 +1,73 @@
+<templates> - создаем base.html
+
+внутри делаем шаблон, включая стили, meta и тд и тп: 
+
+------------
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <title>**</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+
+------------
+
+после этого перед будущим шаблоном пишем {% load static %}
+
+в <title> по бокам от названия файла добавляем {% block title%}**{% endblock %}
+
+#создан блок названия пол умолчанию. Если вставить его в файл, и ** изменить на другое, то в 
+итоге название поменяется, но если же тега {% block title %} в основном файле нету, то будет использоваться 
+шаблонное название.
+
+В <body> создаем конструкцию 
+
+{% block content %}
+
+{% endblock %}
+
+#часть шаблона, в которую сунем все, что было в теге <body>
+
+А иак же создадим конструкцию для подключения JS
+
+{% block script %}
+<script src="{% static '**' %}"></script>
+{% endblock %}
+
+Готово!!!
+
+Теперь возвращаемся в main документ, удаляем все кроме наполнения тега <body>, и в самом верху пишем: 
+
+{% extends 'base.html' %}  #подключаем наш шаблон
+{% load static %}   #подключенные нами ранее стили папки static
+
+Наполнение <body> заключаем в конструкцию 
+
+{% block content %}
+**
+{% endblock %}
+
+Поздравляюююю, теперь у тебя есть шаблон!)
+
+А так же бонус с URL:
+
+app_<project_name) - urls.py
+
+каждому элементу списка можно присвоить параметр name='**'
+Чтобы понять, зачем мы это сделали, заходим в main файл: 
+
+Итак, мы сделали возможность перехода по нажатию кнопки.
+Находим тег, отвечающий за это, и меняем название файла на {% url '**' %}
