@@ -46,3 +46,81 @@ c.fetchone() - выбирает одну запись, так же по rowid, �
 #Django
 
 В терминале пишем py manage.py migrate, OK значит, что все успешно установлено
+
+Заходим в файл models.py 
+Здесь у нас хранятся все БД
+У нас есть библиотека models, с помощью которой создаются БД
+Пример:
+---
+class Advertisment(models.Model):
+    title = models.CharField("Название", max_length=120)
+    descriptions = models.TextField("Описание")
+    price = models.DecimalField("Цена", max_digits=9, decimal_places=2)
+    trades = models.BooleanField("Торг", help_text = "Если хотим торговаться")
+    date_now = models.DateField("Создание дата", auto_now_add=True)
+    date_update = models.DateField("Обновление дата", auto_now=True)
+    pass
+---
+Т.Е. 
+<name> = models.<type_of_data>("<title>, <other_tag>)
+---
+После заходим в терминал и пишем 
+py manage.py makemigration
+И этой командой сохраняем БДшку
+
+А после подтверждаем ее сохранение командой
+py manage.py migrate
+
+<project_name> - app_<project_name> - migrations 
+
+Это папка со всеми нашими миграциями
+Там мы можем увидеть следующее: 
+
+---
+
+from django.db import migrations, models
+
+
+class Migration(migrations.Migration):
+
+    initial = True
+
+    dependencies = [
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name='Advertisment',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('title', models.CharField(max_length=120, verbose_name='Название')),
+                ('descriptions', models.TextField(verbose_name='Описание')),
+                ('price', models.DecimalField(decimal_places=2, max_digits=9, verbose_name='Цена')),
+                ('trades', models.BooleanField(help_text='Если хотим торговаться', verbose_name='Торг')),
+                ('date_now', models.DateField(auto_now_add=True, verbose_name='Создание дата')),
+                ('date_update', models.DateField(auto_now=True, verbose_name='Обновление дата')),
+            ],
+        ),
+    ]
+
+---
+
+dependencies - история изменений
+operations - операции с бд
+
+Бонус: 
+py manage.py shell - открывает консоль, где можно выполнять временные задачи или проверку запросов к БД
+
+from app_<project_name> import * 
+#импортируем все в shell
+
+Можно создать данные таблицы через shell
+
+<name> = <project_name>(<column_name> = '**' ...)
+
+<name>.<column_name> - выведет то, что у нас в **
+<name>.save() - сохраняем данные 
+<project_name>.objects.all() - выводит все данные таблицы
+
+from django import connection 
+connection.queries - changelog
